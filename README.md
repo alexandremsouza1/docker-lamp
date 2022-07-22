@@ -27,6 +27,10 @@ Run mysql client:
 # Command 
 
 php -S 0.0.0.0:8090 -t public/bebidas 
+
+var_dump(password_hash('sua senha aqui', 1));
+vendor/bin/phpunit --filter testCancelarOrder 
+
 rm -rf data/cache/*.php  
 
 curl -w '\n' http://0.0.0.0:6379 
@@ -34,5 +38,9 @@ curl -w '\n' http://localhost:6379
 curl -w '\n' http://redis-1:6379 
 
 curl -
+
+
+C:\Users\Alexandre\AppData\Roaming\Code\User\settings.json
+"php.debug.executablePath": "docker-compose exec www ll_app/vendor/bin/phpunit",
 
 Enjoy !
