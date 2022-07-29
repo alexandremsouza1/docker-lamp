@@ -34,7 +34,7 @@ RUN docker-php-ext-install zip
 RUN docker-php-ext-enable zip
 
 # pdo_mysql
-RUN docker-php-ext-install pdo_mysql
+RUN docker-php-ext-install mysqli pdo pdo_mysql
 RUN docker-php-ext-enable pdo_mysql
 
 # gd
@@ -76,7 +76,9 @@ xdebug.xdebug.start_with_request=yes \n\
 xdebug.xdebug.log=/tmp/xdebug.log"  >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 
-COPY ./etc/000-default.conf /etc/apache2/sites-available/
+COPY ./etc/*.conf /etc/apache2/sites-available/
 COPY ./etc/php.ini /usr/local/etc/php/php.ini
+
+RUN a2ensite suzano.devorama.com.br.conf
 
 RUN a2enmod rewrite
