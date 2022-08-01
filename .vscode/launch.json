@@ -6,7 +6,7 @@
       "type": "php",
       "request": "launch",
       "hostname": "0.0.0.0",
-      "port": 9003,
+      "port": 9000,
       "log": true,
       "pathMappings": {
         "/var/www/html": "${workspaceFolder}/htdocs"

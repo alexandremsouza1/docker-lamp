@@ -47,6 +47,9 @@ RUN apt-get install -y libxml2-dev
 RUN docker-php-ext-install soap
 RUN docker-php-ext-enable soap
 
+# calendar
+RUN docker-php-ext-install calendar && docker-php-ext-configure calendar
+
 
 
 
@@ -56,29 +59,22 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
   && php -r "unlink('composer-setup.php');" \
   && mv composer.phar /usr/local/bin/composer && composer self-update --1
 
-# install xdebug 3
-RUN pecl install xdebug
-RUN docker-php-ext-enable xdebug
-RUN echo "zend_extension=/usr/local/lib/php/extensions/no-debug-non-zts-20160303/xdebug.so" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-RUN echo "error_reporting = E_ALL" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-RUN echo "display_startup_errors = On" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-RUN echo "display_errors = On" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
-# enable xdebug 3
-RUN echo \
-"\n\
-[xdebug] \n\
-xdebug.mode=debug \n\
-xdebug.idekey=VSCODE \n\
-xdebug.discover_client_host=0 \n\
-xdebug.client_host=host.docker.internal \n\
-xdebug.xdebug.start_with_request=yes \n\
-xdebug.xdebug.log=/tmp/xdebug.log"  >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-
-
-COPY ./etc/*.conf /etc/apache2/sites-available/
 COPY ./etc/php.ini /usr/local/etc/php/php.ini
 
+COPY ./etc/*.conf /etc/apache2/sites-available/
 RUN a2ensite suzano.devorama.com.br.conf
 
 RUN a2enmod rewrite
+
+
+# install xdebug 3
+RUN pecl install xdebug && docker-php-ext-enable xdebug \
+    && { \
+    echo "zend_extension=xdebug"; \
+    echo "xdebug.mode=debug"; \
+    echo "xdebug.start_with_request=yes"; \
+    echo "xdebug.client_host=host.docker.internal"; \
+    echo "xdebug.client_port=9000"; \
+    echo "xdebug.idekey=vscode"; \
+    } > /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini;
