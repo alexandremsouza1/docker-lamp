@@ -50,7 +50,8 @@ RUN docker-php-ext-enable soap
 # calendar
 RUN docker-php-ext-install calendar && docker-php-ext-configure calendar
 
-
+# sockets
+RUN docker-php-ext-configure sockets && docker-php-ext-install sockets && docker-php-ext-enable sockets
 
 
 # Install composer
@@ -64,6 +65,7 @@ COPY ./etc/php.ini /usr/local/etc/php/php.ini
 
 COPY ./etc/*.conf /etc/apache2/sites-available/
 RUN a2ensite suzano.devorama.com.br.conf
+RUN a2ensite suzanoholding.devorama.com.br.conf
 
 RUN a2enmod rewrite
 
