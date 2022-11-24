@@ -28,6 +28,11 @@ Run mysql client:
 
 php -S 0.0.0.0:8090 -t public/bebidas 
 
+
+# Laravel
+
+php artisan serve --host=0.0.0.0 --port=8090
+
 var_dump(password_hash('sua senha aqui', 1));
 vendor/bin/phpunit --filter testCancelarOrder 
 

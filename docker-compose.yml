@@ -56,5 +56,16 @@ services:
         networks:
             - default
         restart: always
+
+    rabbitmq:
+        image: rabbitmq:management
+        ports:
+            - "5672:5672"
+            - "15672:15672"
+        networks:
+            - default
+        restart: always
+        volumes:
+            - ./dump:/var/lib/rabbitmq
 volumes:
     persistent:
