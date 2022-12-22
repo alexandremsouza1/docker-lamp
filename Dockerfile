@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y \
         libjpeg-dev \
         libfreetype6-dev \
         libicu-dev \
+        libgmp-dev \
         g++ 
 
 # curl for cmd
@@ -53,6 +54,8 @@ RUN docker-php-ext-install calendar && docker-php-ext-configure calendar
 # sockets
 RUN docker-php-ext-configure sockets && docker-php-ext-install sockets && docker-php-ext-enable sockets
 
+# ext-gmp
+RUN docker-php-ext-configure gmp && docker-php-ext-install gmp && docker-php-ext-enable gmp
 
 # Install composer
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
@@ -70,8 +73,8 @@ RUN a2ensite suzanoholding.devorama.com.br.conf
 RUN a2enmod rewrite
 
 
-# install xdebug 3
-RUN pecl install xdebug && docker-php-ext-enable xdebug \
+# install xdebug 2
+RUN pecl install xdebug-2.9.0 && docker-php-ext-enable xdebug \
     && { \
     echo "zend_extension=xdebug"; \
     echo "xdebug.mode=debug"; \

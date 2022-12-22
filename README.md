@@ -33,7 +33,14 @@ php -S 0.0.0.0:8090 -t public/bebidas
 
 php artisan serve --host=0.0.0.0 --port=8090
 
+
+php artisan queue:work
+
 var_dump(password_hash('sua senha aqui', 1));
+Ex: var_dump(password_hash('123', 1));
+
+$2y$10$Yu.A9NXo1cnDFmDOt5NdkOlRvOMtzm3CjgC1uErlXfQk0xf4j7KMC
+
 vendor/bin/phpunit --filter testCancelarOrder 
 
 rm -rf data/cache/*.php  
