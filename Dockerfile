@@ -77,9 +77,11 @@ RUN a2enmod rewrite
 RUN pecl install xdebug-2.9.0 && docker-php-ext-enable xdebug \
     && { \
     echo "zend_extension=xdebug"; \
-    echo "xdebug.mode=debug"; \
-    echo "xdebug.start_with_request=yes"; \
-    echo "xdebug.client_host=host.docker.internal"; \
-    echo "xdebug.client_port=9000"; \
+    echo "xdebug.remote_mode=req"; \
+    echo "xdebug.remote_autostart=1"; \
+    echo "xdebug.remote_enable=1"; \
+    echo "xdebug.remote_connect_back=0"; \
+    echo "xdebug.remote_host=host.docker.internal"; \
+    echo "xdebug.remote_port=9000"; \
     echo "xdebug.idekey=vscode"; \
-    } > /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini;
+    } > /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
