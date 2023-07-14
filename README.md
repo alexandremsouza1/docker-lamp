@@ -26,7 +26,11 @@ Run mysql client:
 
 # Command 
 
-php -S 0.0.0.0:8090 -t public/bebidas 
+php -S 0.0.0.0:8080 -t public/bebidas 
+
+# UP stone 
+
+php -S 0.0.0.0:8090 -t public/stone/proxy/
 
 
 # Laravel
